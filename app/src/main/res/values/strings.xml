@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Project 3</string>
+    <string name="Login">Log In</string>
+    <string name="createaccount">Create Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
