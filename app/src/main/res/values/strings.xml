@@ -5,4 +5,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="validation_fail">login error</string>
+    <string name="user_create_fail">username already taken; pick another</string>
+    <string name="user_create_success">user created successfully! please log in</string>
+    <string name="validation_fail_user_or_pass">incorrect user/password combination</string>
 </resources>

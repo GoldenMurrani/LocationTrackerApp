@@ -4,7 +4,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 @Root(name = "gps")
-public class ValidateUser {
+public class CreateUser {
 
     @Attribute
     private String status;
