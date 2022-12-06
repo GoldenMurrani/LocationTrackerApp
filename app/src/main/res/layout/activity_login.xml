@@ -7,7 +7,7 @@
     android:layout_margin="20dp"
     android:gravity="center"
     android:onClick="onCreateUser"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <EditText
         android:id="@+id/editTextUser"

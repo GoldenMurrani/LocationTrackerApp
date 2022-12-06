@@ -1,7 +1,12 @@
 package edu.msu.murraniy.project3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +15,7 @@ import android.widget.Toast;
 
 import edu.msu.murraniy.project3.Cloud.Cloud;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText EditTextUser, EditTextPass;
 
@@ -20,10 +25,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         EditTextUser = findViewById(R.id.editTextUser);
         EditTextPass = findViewById(R.id.editTextPassword);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Also, dont forget to add overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //   int[] grantResults)
+                // to handle the case where the user grants the permission.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
     }
 
     public void onLogin(View view) {
@@ -51,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                    } else{
-                            //TODO: launch the activity with all the functionality
-                            finish();
+                    } else {
+                        //launch the activity with all the functionality
+                        LoginActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Intent intent = new Intent(LoginActivity.this, GpsActivity.class);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     // Error condition! Something went wrong
