@@ -5,22 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import edu.msu.murraniy.project3.Cloud.Cloud;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String username = "user";
-    private String password = "pass";
+    private EditText EditTextUser, EditTextPass;
+
+    private String username = "";
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EditTextUser = findViewById(R.id.editTextUser);
+        EditTextPass = findViewById(R.id.editTextPassword);
     }
 
     public void onLogin(View view) {
+        username = EditTextUser.getText().toString();
+        password = EditTextPass.getText().toString();
 
         new Thread(new Runnable() {
             @Override
@@ -44,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     } else{
-
+                            //TODO: launch the activity with all the functionality
 
                     }
                 } catch (Exception e) {
