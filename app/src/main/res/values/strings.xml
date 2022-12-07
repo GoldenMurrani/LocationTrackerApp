@@ -10,4 +10,5 @@
     <string name="validation_fail_user_or_pass">incorrect user/password combination</string>
     <string name="here">I WAS HERE</string>
     <string name="map_content_desc">a view of the map with possible locations users have been</string>
+    <string name="dummy">Dummy String</string>
 </resources>

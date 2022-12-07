@@ -44,6 +44,21 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     private double longitude = 0;
     private boolean valid = false;
 
+    public static class LocationInfo {
+        String name = null;
+        int id = -1;
+
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id;}
+
+        public LocationInfo(String name, int id) {
+            this.name = name;
+            this.id = id;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
