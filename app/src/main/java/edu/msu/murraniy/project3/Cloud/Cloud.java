@@ -19,6 +19,8 @@ public class Cloud {
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~kroskema/cse476/project3/";
     public static final String VALIDATEUSER_PATH = "gps-validateuser.php";
     public static final String CREATEUSER_PATH = "gps-createuser.php";
+    public static final String GETLOCATIONS_PATH = "gps-getlocations.php";
+    public static final String CHECKHERE_PATH = "gps-checkhere.php";
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
