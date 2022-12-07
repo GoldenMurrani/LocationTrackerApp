@@ -28,11 +28,18 @@
         android:inputType="textPassword"
         android:minHeight="48dp" />
 
+    <CheckBox
+        android:id="@+id/showPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPassword"
+        android:text="@string/show_password"/>
+
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPassword"
+        android:layout_below="@id/showPass"
         android:onClick="onLogin"
         android:text="@string/Login" />
 
@@ -40,7 +47,7 @@
         android:id="@+id/buttonCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextPassword"
+        android:layout_below="@id/showPass"
         android:layout_alignEnd="@id/editTextPassword"
         android:onClick="onCreateUser"
         android:text="@string/createaccount" />

@@ -8,8 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +22,7 @@ import edu.msu.murraniy.project3.Cloud.Cloud;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText EditTextUser, EditTextPass;
+    private CheckBox showPass_check;
 
     private String username = "";
     private String password = "";
@@ -29,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         EditTextUser = findViewById(R.id.editTextUser);
         EditTextPass = findViewById(R.id.editTextPassword);
+        showPass_check = findViewById(R.id.showPass);
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -41,6 +47,18 @@ public class LoginActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
+
+        showPass_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    EditTextPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    EditTextPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
+
     }
 
     public void onLogin(View view) {
