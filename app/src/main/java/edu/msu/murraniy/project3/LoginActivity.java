@@ -76,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
+                        //TODO: do we need to keep the login page on the activity stack?
+//                        finish();
                     }
                 } catch (Exception e) {
                     // Error condition! Something went wrong
