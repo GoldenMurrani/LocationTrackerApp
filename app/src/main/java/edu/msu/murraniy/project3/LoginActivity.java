@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         LoginActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 Intent intent = new Intent(LoginActivity.this, GpsActivity.class);
+                                intent.putExtra("userID", username);
                                 startActivity(intent);
                             }
                         });

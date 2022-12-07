@@ -50,6 +50,9 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     private double longitude = 0;
     private boolean valid = false;
 
+    // user ID passed here if the login process is completed
+    private String userID;
+
     public static class LocationInfo {
         private String name = null;
         private int id = -1;
@@ -83,6 +86,11 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //mGpsView = (GpsView)findViewById(R.id.gpsView);
 
+        // get the user ID
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            userID = extras.getString("userID");
+        }
     }
 
     @Override
