@@ -9,11 +9,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import edu.msu.murraniy.project3.Cloud.Cloud;
 
 public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -40,13 +45,14 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationManager locationManager = null;
     private ActiveListener activeListener = new ActiveListener();
 
+    // The user's most recently updated location
     private double latitude = 0;
     private double longitude = 0;
     private boolean valid = false;
 
     public static class LocationInfo {
-        String name = null;
-        int id = -1;
+        private String name = null;
+        private int id = -1;
 
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
@@ -96,7 +102,53 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
     // Handle the I WAS HERE button click
     public void onHere(View view) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Cloud cloud = new Cloud();
+                final LocationInfo locInfo;
+                try {
+                    locInfo = cloud.checkHere(latitude, longitude);
 
+                    if(locInfo == null) {
+                        /*
+                         * If validation fails, display a toast
+                         */
+                        view.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                Toast.makeText(view.getContext(),
+                                        R.string.check_fail,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else{
+                        // will need to activate putting in your own comment here was well
+                        grabComments(view, locInfo.getId());
+                    }
+                } catch (Exception e) {
+                    // Error condition! Something went wrong
+                    Log.e("onHere", "Something went with attempting a here claim", e);
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(view.getContext(), R.string.check_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    // Gets the comments of a location after a successful HERE check
+    // called inside of a thread already so no further threading needed
+    public void grabComments(View view, int locId) {
+        // Get the comment list view
+        ListView commentList = (ListView)view.findViewById(R.id.commentList);
+        final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList);
+        adapter.setLocId(locId);
+        commentList.setAdapter(adapter);
     }
 
     @Override

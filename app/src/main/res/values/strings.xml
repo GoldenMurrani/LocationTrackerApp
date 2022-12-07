@@ -11,4 +11,6 @@
     <string name="here">I WAS HERE</string>
     <string name="map_content_desc">a view of the map with possible locations users have been</string>
     <string name="dummy">Dummy String</string>
+    <string name="check_fail">You\'re not within range of any spots!</string>
+    <string name="comment_fail">Couldn\'t retrieve any comments from this location!</string>
 </resources>
