@@ -15,6 +15,7 @@
             android:layout_weight="1" />
 
         <ListView
+            android:id="@+id/commentList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2">
@@ -28,6 +29,7 @@
             android:layout_margin="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:onClick="onHere"
             android:text="@string/here" />
 
     </LinearLayout>

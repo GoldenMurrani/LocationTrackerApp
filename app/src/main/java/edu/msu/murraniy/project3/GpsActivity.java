@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
 
-        mGpsView = (GpsView)findViewById(R.id.gpsView);
+        //mGpsView = (GpsView)findViewById(R.id.gpsView);
 
     }
 
@@ -49,8 +50,13 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
      * Get the gps view
      * @return GpsView reference
      */
-    private GpsView getGpsView() {
-        return (GpsView)this.findViewById(R.id.gpsView);
+    //private GpsView getGpsView() {
+        //return (GpsView)this.findViewById(R.id.gpsView);
+    //}
+
+    // Handle the I WAS HERE button click
+    public void onHere(View view) {
+
     }
 
     @Override
