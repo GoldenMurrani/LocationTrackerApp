@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -48,7 +49,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean valid = false;
 
     // user ID passed here if the login process is completed
-    private String userID;
+    private int userID;
 
     public static class LocationInfo {
         private String name = null;
@@ -70,6 +71,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(bundle);
         setContentView(R.layout.activity_gps);
 
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+
         Bundle mapViewBundle = null;
         if (bundle != null) {
             mapViewBundle = bundle.getBundle(MAPVIEW_BUNDLE_KEY);
@@ -86,7 +89,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         // get the user ID
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            userID = extras.getString("userID");
+            userID = extras.getInt("userID");
         }
     }
 
@@ -199,6 +202,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+
+        registerListeners();
     }
 
     @Override
@@ -209,6 +214,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onPause() {
+        unregisterListeners();
+
         mMapView.onPause();
         super.onPause();
     }
