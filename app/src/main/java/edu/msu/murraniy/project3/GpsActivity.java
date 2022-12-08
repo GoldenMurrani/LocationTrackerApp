@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -197,10 +200,21 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                     LocationList locationsList = cloud.getLocations();
 
                     for(edu.msu.murraniy.project3.Cloud.Models.Location locations : locationsList.getItems()){
+
+                        // Create the marker based on locations from the cloud
                         LatLng latlng = new LatLng(locations.getLat(), locations.getLng());
                         MarkerOptions marker = new MarkerOptions();
                         marker.title(locations.getName());
                         marker.position(latlng);
+
+                        //Create a new custon icon for the marker
+                        int height = 100;
+                        int width = 100;
+                        BitmapDrawable bDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.green_marker);
+                        Bitmap b = bDraw.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+                        marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                         runOnUiThread(new Runnable() {
                             @Override
