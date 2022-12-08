@@ -14,4 +14,5 @@
     <string name="check_fail">You\'re not within range of any spots!</string>
     <string name="comment_fail">Couldn\'t retrieve any comments from this location!</string>
     <string name="show_password">Show Password</string>
+    <string name="location_fail">Failed to Load Locations</string>
 </resources>

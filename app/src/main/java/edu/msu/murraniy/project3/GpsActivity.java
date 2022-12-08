@@ -10,15 +10,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -29,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.msu.murraniy.project3.Cloud.Cloud;
+import edu.msu.murraniy.project3.Cloud.Models.LocationList;
 
 public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -36,6 +32,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private MapView mMapView = null;
     private GpsView mGpsView = null;
+    private GoogleMap googleMap;
 
     private SharedPreferences settings = null;
     private final static String TO = "to";
@@ -84,7 +81,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         // Get the location manager
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
-        //mGpsView = (GpsView)findViewById(R.id.gpsView);
+        //mGpsView = (GpsView)findViewById(GpsView.generateViewId());
 
         // get the user ID
         Bundle extras = getIntent().getExtras();
@@ -161,6 +158,40 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap map) {
+        googleMap = map;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                Cloud cloud = new Cloud();
+                try {
+                    LocationList locationsList = cloud.getLocations();
+
+                    for(edu.msu.murraniy.project3.Cloud.Models.Location locations : locationsList.getItems()){
+                        LatLng latlng = new LatLng(locations.getLat(), locations.getLng());
+                        MarkerOptions marker = new MarkerOptions();
+                        marker.title(locations.getName());
+                        marker.position(latlng);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                googleMap.addMarker(marker);
+                            }
+                        });
+                    }
+                }catch (Exception e){
+                    Log.e("GetLocations", "Something went wrong when getting the locations", e);
+                    mMapView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(mMapView.getContext(), R.string.location_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        }).start();
 
     }
 

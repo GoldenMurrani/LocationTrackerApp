@@ -3,6 +3,7 @@ package edu.msu.murraniy.project3.Cloud;
 
 import static edu.msu.murraniy.project3.Cloud.Cloud.CHECKHERE_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.GETCOMMENTS_PATH;
+import static edu.msu.murraniy.project3.Cloud.Cloud.GETLOCATIONS_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.VALIDATEUSER_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.CREATEUSER_PATH;
 
@@ -10,6 +11,7 @@ import static edu.msu.murraniy.project3.Cloud.Cloud.CREATEUSER_PATH;
 import edu.msu.murraniy.project3.Cloud.Models.CheckHere;
 import edu.msu.murraniy.project3.Cloud.Models.CommentCatalog;
 import edu.msu.murraniy.project3.Cloud.Models.CreateUser;
+import edu.msu.murraniy.project3.Cloud.Models.LocationList;
 import edu.msu.murraniy.project3.Cloud.Models.ValidateUser;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -33,6 +35,11 @@ public interface GpsService {
             @Query("magic") String magic,
             @Query("lat") double lat,
             @Query("lng") double lng
+    );
+
+    @GET(GETLOCATIONS_PATH)
+    Call<LocationList> getLocations(
+            @Query("magic") String magic
     );
 
     @GET(GETCOMMENTS_PATH)

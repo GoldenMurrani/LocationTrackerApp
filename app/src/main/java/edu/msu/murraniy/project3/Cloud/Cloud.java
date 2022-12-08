@@ -16,6 +16,8 @@ import edu.msu.murraniy.project3.Cloud.Models.CheckHere;
 import edu.msu.murraniy.project3.Cloud.Models.Comment;
 import edu.msu.murraniy.project3.Cloud.Models.CommentCatalog;
 import edu.msu.murraniy.project3.Cloud.Models.CreateUser;
+import edu.msu.murraniy.project3.Cloud.Models.Location;
+import edu.msu.murraniy.project3.Cloud.Models.LocationList;
 import edu.msu.murraniy.project3.Cloud.Models.ValidateUser;
 import edu.msu.murraniy.project3.GpsActivity;
 import edu.msu.murraniy.project3.R;
@@ -80,6 +82,28 @@ public class Cloud {
             return false;
         }
 
+    }
+
+    public LocationList getLocations() throws IOException, RuntimeException{
+        GpsService service = retrofit.create(GpsService.class);
+
+        Response<LocationList> response = service.getLocations(MAGIC).execute();
+
+        // check if request failed
+        if (!response.isSuccessful()) {
+            Log.e("getLocations", "Failed to get locations, response code is = " + response.code());
+            return new LocationList("no", new ArrayList<Location>(), "Server error " + response.code());
+        }
+        LocationList locations = response.body();
+        if (locations.getStatus().equals("no")) {
+            String string = "Failed to get locations, msg is = " + locations.getMessage();
+            Log.e("getLocations", string);
+            return new LocationList("no", new ArrayList<Location>(), string);
+        };
+        if (locations.getItems() == null) {
+            locations.setItems(new ArrayList<Location>());
+        }
+        return locations;
 
     }
 
@@ -125,6 +149,10 @@ public class Cloud {
     }
 
     public GpsActivity.LocationInfo checkHere(double latitude, double longitude) {
+
+        // hard coded locations for testing
+//        latitude = 42.73113094579051;
+//        longitude = -84.48749974443228;
 
         GpsService service = retrofit.create(GpsService.class);
 
