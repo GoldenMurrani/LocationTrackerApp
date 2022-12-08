@@ -43,16 +43,18 @@ public class Cloud {
             .build();
 
 
-    public boolean validateUser(String username, String password) throws IOException, RuntimeException {
+    public int validateUser(String username, String password) throws IOException, RuntimeException {
 
         username = username.trim();
         password = password.trim();
 
+        int failed = -1;
+
         if(username.length() == 0){
-            return false;
+            return failed;
         }
         if(password.length() == 0){
-            return false;
+            return failed;
         }
 
         GpsService service = retrofit.create(GpsService.class);
@@ -65,21 +67,22 @@ public class Cloud {
 
                 if (result.getStatus() != null && result.getStatus().equals("yes")) {
                     Log.e("ValidateUser", "ya won: ");
-                    return true;
+                    int userID = result.getID();
+                    return userID;
                 }
                 Log.e("ValidateUser", "Failed to validate, message = '" + result.getMessage() + "'");
-                return false;
+                return failed;
 
             }
             Log.e("ValidateUser", "Failed to create, message = '" + response.code() + "'");
-            return false;
+            return failed;
 
         }catch (IOException e){
             Log.e("ValidateUser", "Exception occurred while trying to validate user!", e);
-            return false;
+            return failed;
         }catch (RuntimeException e) {	// to catch xml errors to help debug step 6
             Log.e("ValidateUser", "Runtime Exception: " + e.getMessage());
-            return false;
+            return failed;
         }
 
     }

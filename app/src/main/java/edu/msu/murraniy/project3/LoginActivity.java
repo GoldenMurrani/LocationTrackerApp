@@ -69,11 +69,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
-                final boolean ok;
+                final int ok;
                 try {
                     ok = cloud.validateUser(username, password);
 
-                    if(!ok) {
+                    if(ok == -1) {
                         /*
                          * If validation fails, display a toast
                          */
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         LoginActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 Intent intent = new Intent(LoginActivity.this, GpsActivity.class);
-                                intent.putExtra("userID", username);
+                                intent.putExtra("userID", ok);
                                 startActivity(intent);
                             }
                         });

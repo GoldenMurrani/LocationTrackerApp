@@ -9,6 +9,9 @@ public class ValidateUser {
     @Attribute
     private String status;
 
+    @Attribute
+    private int id;
+
     @Attribute(name = "msg", required = false)
     private String message;
 
@@ -27,4 +30,7 @@ public class ValidateUser {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getID() {return id; }
+    public void setID(int newID) {this.id = newID;}
 }
