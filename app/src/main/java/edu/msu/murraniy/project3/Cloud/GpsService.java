@@ -45,7 +45,7 @@ public interface GpsService {
     @GET(GETCOMMENTS_PATH)
     Call<CommentCatalog> getComments(
             @Query("magic") String magic,
-            @Query("id") int locId
+            @Query("locId") int locId
     );
 
     @FormUrlEncoded

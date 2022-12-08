@@ -132,8 +132,13 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                             }
                         });
                     } else{
-                        // will need to activate putting in your own comment here was well
-                        grabComments(view, locInfo.getId());
+
+                        GpsActivity.this.runOnUiThread(new Runnable () {
+                            public void run() {
+                                // will need to activate putting in your own comment here was well
+                                grabComments(locInfo.getId());
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     // Error condition! Something went wrong
@@ -150,12 +155,10 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     // Gets the comments of a location after a successful HERE check
-    // called inside of a thread already so no further threading needed
-    public void grabComments(View view, int locId) {
+    public void grabComments(int locId) {
         // Get the comment list view
-        ListView commentList = (ListView)view.findViewById(R.id.commentList);
-        final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList);
-        adapter.setLocId(locId);
+        ListView commentList = (ListView)findViewById(R.id.commentList);
+        final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList, locId);
         commentList.setAdapter(adapter);
     }
 

@@ -6,12 +6,12 @@ import org.simpleframework.xml.Root;
 /**
  * Nested class to store one catalog row
  */
-@Root(name = "gps")
+@Root(name = "comments")
 public final class Comment {
-    @Attribute
+    @Attribute(name = "user")
     private String user;
 
-    @Attribute
+    @Attribute(name = "comment")
     private String comment;
 
     public String getUser() {

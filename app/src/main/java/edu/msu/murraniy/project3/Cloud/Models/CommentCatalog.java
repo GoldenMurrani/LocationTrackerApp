@@ -14,7 +14,7 @@ public final class CommentCatalog {
     @Attribute
     private String status;
 
-    @ElementList(name = "comment", inline = true, required = false, type = Comment.class)
+    @ElementList(name = "comments", inline = true, required = false, type = Comment.class)
     private List<Comment> comments;
 
     @Attribute(name = "msg", required = false)
@@ -44,9 +44,9 @@ public final class CommentCatalog {
         this.message = message;
     }
 
-    public CommentCatalog(String status, ArrayList<Comment> games, @Nullable String msg) {
+    public CommentCatalog(String status, ArrayList<Comment> comments, @Nullable String msg) {
         this.status = status;
-        this.comments = games;
+        this.comments = comments;
         this.message = msg;
     }
 

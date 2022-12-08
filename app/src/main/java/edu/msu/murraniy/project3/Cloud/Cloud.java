@@ -205,7 +205,7 @@ public class Cloud {
         /**
          * Constructor
          */
-        public CommentCatalogAdapter(final View view) {
+        public CommentCatalogAdapter(final View view, int locId) {
             // Create a thread to load the catalog
             new Thread(new Runnable() {
 
@@ -220,7 +220,7 @@ public class Cloud {
                             throw new Exception(msg);
                         }
                         if (catalog.getItems().isEmpty()) {
-                            String msg = "No available games found.";
+                            String msg = "No comments found.";
                             throw new Exception(msg);
                         }
 
