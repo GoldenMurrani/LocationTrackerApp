@@ -55,10 +55,21 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         private String name = null;
         private int id = -1;
 
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
-        public int getId() { return id; }
-        public void setId(int id) { this.id = id;}
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public LocationInfo(String name, int id) {
             this.name = name;
@@ -77,18 +88,18 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         if (bundle != null) {
             mapViewBundle = bundle.getBundle(MAPVIEW_BUNDLE_KEY);
         }
-        mMapView = (MapView)findViewById(R.id.mapView);
+        mMapView = (MapView) findViewById(R.id.mapView);
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
 
         // Get the location manager
-        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //mGpsView = (GpsView)findViewById(GpsView.generateViewId());
 
         // get the user ID
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
+        if (extras != null) {
             userID = extras.getInt("userID");
         }
     }
@@ -105,7 +116,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
      * @return GpsView reference
      */
     //private GpsView getGpsView() {
-        //return (GpsView)this.findViewById(R.id.gpsView);
+    //return (GpsView)this.findViewById(R.id.gpsView);
     //}
 
     // Handle the I WAS HERE button click
@@ -118,7 +129,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                 try {
                     locInfo = cloud.checkHere(latitude, longitude);
 
-                    if(locInfo == null) {
+                    if (locInfo == null) {
                         /*
                          * If validation fails, display a toast
                          */
@@ -131,7 +142,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                    } else{
+                    } else {
                         // will need to activate putting in your own comment here was well
                         grabComments(view, locInfo.getId());
                     }
@@ -153,7 +164,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     // called inside of a thread already so no further threading needed
     public void grabComments(View view, int locId) {
         // Get the comment list view
-        ListView commentList = (ListView)view.findViewById(R.id.commentList);
+        ListView commentList = (ListView) view.findViewById(R.id.commentList);
         final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList);
         adapter.setLocId(locId);
         commentList.setAdapter(adapter);
@@ -162,6 +173,20 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
+
+
 
         new Thread(new Runnable() {
             @Override
