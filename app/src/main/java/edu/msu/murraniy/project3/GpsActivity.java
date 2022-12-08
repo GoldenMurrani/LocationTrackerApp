@@ -159,7 +159,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
     // Gets the comments of a location after a successful HERE check
     // called inside of a thread already so no further threading needed
-    public void grabComments(View view, int locId) {
+    public void grabComments(int locId) {
         // Get the comment list view
         ListView commentList = (ListView)findViewById(R.id.commentList);
         final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList, locId);
