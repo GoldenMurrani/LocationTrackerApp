@@ -189,7 +189,12 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         googleMap.setMyLocationEnabled(true);
 
-
+        //Create a new custom icon for the marker
+        int height = 100;
+        int width = 100;
+        BitmapDrawable bDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.green_marker);
+        Bitmap b = bDraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         new Thread(new Runnable() {
             @Override
@@ -207,13 +212,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                         marker.title(locations.getName());
                         marker.position(latlng);
 
-                        //Create a new custon icon for the marker
-                        int height = 100;
-                        int width = 100;
-                        BitmapDrawable bDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.green_marker);
-                        Bitmap b = bDraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
+                        // Set the new icon
                         marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                         runOnUiThread(new Runnable() {
