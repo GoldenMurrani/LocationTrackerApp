@@ -14,7 +14,7 @@ public final class CommentCatalog {
     @Attribute
     private String status;
 
-    @ElementList(name = "chessgames", inline = true, required = false, type = Comment.class)
+    @ElementList(name = "comment", inline = true, required = false, type = Comment.class)
     private List<Comment> comments;
 
     @Attribute(name = "msg", required = false)
