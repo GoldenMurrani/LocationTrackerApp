@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -105,7 +108,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
      * @return GpsView reference
      */
     //private GpsView getGpsView() {
-        //return (GpsView)this.findViewById(R.id.gpsView);
+    //return (GpsView)this.findViewById(R.id.gpsView);
     //}
 
     // Handle the I WAS HERE button click
@@ -118,7 +121,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                 try {
                     locInfo = cloud.checkHere(latitude, longitude);
 
-                    if(locInfo == null) {
+                    if (locInfo == null) {
                         /*
                          * If validation fails, display a toast
                          */
@@ -155,7 +158,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     // Gets the comments of a location after a successful HERE check
-    public void grabComments(int locId) {
+    // called inside of a thread already so no further threading needed
+    public void grabComments(View view, int locId) {
         // Get the comment list view
         ListView commentList = (ListView)findViewById(R.id.commentList);
         final Cloud.CommentCatalogAdapter adapter = new Cloud.CommentCatalogAdapter(commentList, locId);
@@ -166,6 +170,25 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         googleMap = map;
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        googleMap.setMyLocationEnabled(true);
+
+        //Create a new custom icon for the marker
+        int height = 100;
+        int width = 100;
+        BitmapDrawable bDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.green_marker);
+        Bitmap b = bDraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -175,10 +198,15 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                     LocationList locationsList = cloud.getLocations();
 
                     for(edu.msu.murraniy.project3.Cloud.Models.Location locations : locationsList.getItems()){
+
+                        // Create the marker based on locations from the cloud
                         LatLng latlng = new LatLng(locations.getLat(), locations.getLng());
                         MarkerOptions marker = new MarkerOptions();
                         marker.title(locations.getName());
                         marker.position(latlng);
+
+                        // Set the new icon
+                        marker.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                         runOnUiThread(new Runnable() {
                             @Override
