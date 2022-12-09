@@ -6,10 +6,12 @@ import static edu.msu.murraniy.project3.Cloud.Cloud.GETCOMMENTS_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.GETLOCATIONS_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.VALIDATEUSER_PATH;
 import static edu.msu.murraniy.project3.Cloud.Cloud.CREATEUSER_PATH;
+import static edu.msu.murraniy.project3.Cloud.Cloud.CREATECOMMENT_PATH;
 
 
 import edu.msu.murraniy.project3.Cloud.Models.CheckHere;
 import edu.msu.murraniy.project3.Cloud.Models.CommentCatalog;
+import edu.msu.murraniy.project3.Cloud.Models.CreateComment;
 import edu.msu.murraniy.project3.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project3.Cloud.Models.LocationList;
 import edu.msu.murraniy.project3.Cloud.Models.ValidateUser;
@@ -55,4 +57,14 @@ public interface GpsService {
             @Field("magic") String magic,
             @Field("pw") String password
     );
+
+    @FormUrlEncoded
+    @POST(CREATECOMMENT_PATH)
+    Call<CreateComment> createComment(
+            @Field("magic") String magic,
+            @Field("userid") int userID,
+            @Field("locationid") int locationID,
+            @Field("comment") String comment
+    );
+
 }

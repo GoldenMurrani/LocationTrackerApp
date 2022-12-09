@@ -15,4 +15,7 @@
     <string name="comment_fail">Couldn\'t retrieve any comments from this location!</string>
     <string name="show_password">Show Password</string>
     <string name="location_fail">Failed to Load Locations</string>
+    <string name="comment_title">Post a Comment From Your Location!</string>
+    <string name="comment_post">POST</string>
+    <string name="create_comment_fail">Failed to Create Comment</string>
 </resources>

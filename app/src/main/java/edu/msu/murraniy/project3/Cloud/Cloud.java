@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import edu.msu.murraniy.project3.Cloud.Models.CheckHere;
 import edu.msu.murraniy.project3.Cloud.Models.Comment;
 import edu.msu.murraniy.project3.Cloud.Models.CommentCatalog;
+import edu.msu.murraniy.project3.Cloud.Models.CreateComment;
 import edu.msu.murraniy.project3.Cloud.Models.CreateUser;
 import edu.msu.murraniy.project3.Cloud.Models.Location;
 import edu.msu.murraniy.project3.Cloud.Models.LocationList;
@@ -36,6 +37,7 @@ public class Cloud {
     public static final String GETLOCATIONS_PATH = "gps-getlocations.php";
     public static final String CHECKHERE_PATH = "gps-checkhere.php";
     public static final String GETCOMMENTS_PATH = "gps-getcomments.php";
+    public static final String CREATECOMMENT_PATH = "gps-createcomment.php";
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -184,6 +186,41 @@ public class Cloud {
             return null;
         }
 
+    }
+
+    public boolean createComment(int userID, int locationID, String comment) throws IOException, RuntimeException {
+
+        comment = comment.trim();
+        if(comment.length() == 0){
+            return false;
+        }
+
+        GpsService service = retrofit.create(GpsService.class);
+
+        try{
+            Response<CreateComment> response = service.createComment(MAGIC, userID, locationID, comment).execute();
+
+            if(response.isSuccessful()){
+                CreateComment result = response.body();
+
+                if (result.getStatus() != null && result.getStatus().equals("yes")) {
+                    Log.e("CreateComment", "comment created ");
+                    return true;
+                }
+                Log.e("CreateComment", "Failed to create message = '" + result.getMessage() + "'");
+                return false;
+
+            }
+            Log.e("CreateComment", "Failed to create, message = '" + response.code() + "'");
+            return false;
+
+        }catch (IOException e){
+            Log.e("CreateComment", "Exception occurred while trying to create a comment!", e);
+            return false;
+        }catch (RuntimeException e){
+            Log.e("CreateComment", "Runtime Exception: " + e.getMessage());
+            return false;
+        }
     }
 
     /**

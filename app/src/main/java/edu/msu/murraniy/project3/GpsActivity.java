@@ -121,7 +121,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                 try {
                     locInfo = cloud.checkHere(latitude, longitude);
 
-                    if (locInfo == null) {
+                    if (locInfo != null) {
                         /*
                          * If validation fails, display a toast
                          */
@@ -138,8 +138,13 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         GpsActivity.this.runOnUiThread(new Runnable () {
                             public void run() {
-                                // will need to activate putting in your own comment here was well
-                                grabComments(locInfo.getId());
+
+                                CommentDialog commentDialog = new CommentDialog();
+                                commentDialog.setLocationID(1);
+                                commentDialog.setUserID(userID);
+                                commentDialog.show(getSupportFragmentManager(), "comment");
+
+                                grabComments(1);
                             }
                         });
                     }
