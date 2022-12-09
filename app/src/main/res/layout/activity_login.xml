@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:layout_margin="20dp"
     android:gravity="center"
-    android:onClick="onCreateUser"
     tools:context=".LoginActivity">
 
     <EditText
@@ -33,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextPassword"
-        android:text="@string/show_password"/>
+        android:text="@string/show_password" />
 
     <Button
         android:id="@+id/buttonLogin"
