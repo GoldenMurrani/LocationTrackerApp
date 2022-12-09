@@ -321,8 +321,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 googleMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+                initialMap += 1;
             }
-            initialMap += 1;
 
             onLocation(location);
         }
