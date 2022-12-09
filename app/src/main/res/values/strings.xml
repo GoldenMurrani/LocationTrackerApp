@@ -18,4 +18,5 @@
     <string name="comment_title">Post a Comment From Your Location!</string>
     <string name="comment_post">POST</string>
     <string name="create_comment_fail">Failed to Create Comment</string>
+    <string name="comment_creation_success">Comment Posted!</string>
 </resources>

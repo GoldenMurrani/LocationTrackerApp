@@ -121,7 +121,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                 try {
                     locInfo = cloud.checkHere(latitude, longitude);
 
-                    if (locInfo != null) {
+                    if (locInfo == null) {
                         /*
                          * If validation fails, display a toast
                          */
@@ -136,15 +136,15 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                         });
                     } else{
 
-                        GpsActivity.this.runOnUiThread(new Runnable () {
+                        runOnUiThread(new Runnable () {
                             public void run() {
 
                                 CommentDialog commentDialog = new CommentDialog();
-                                commentDialog.setLocationID(1);
+                                commentDialog.setLocationID(locInfo.getId());
                                 commentDialog.setUserID(userID);
                                 commentDialog.show(getSupportFragmentManager(), "comment");
 
-                                grabComments(1);
+                                grabComments(locInfo.getId());
                             }
                         });
                     }
