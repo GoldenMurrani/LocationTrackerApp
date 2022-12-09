@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +51,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
     private double latitude = 0;
     private double longitude = 0;
     private boolean valid = false;
+    private int initialMap = 0;
 
     // user ID passed here if the login process is completed
     private int userID;
@@ -83,6 +85,8 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
         mMapView = (MapView)findViewById(R.id.mapView);
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
+
+
 
         // Get the location manager
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -312,6 +316,14 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
 
         @Override
         public void onLocationChanged(Location location) {
+
+            if(initialMap <= 1){
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+            }
+            initialMap += 1;
+
             onLocation(location);
         }
 
