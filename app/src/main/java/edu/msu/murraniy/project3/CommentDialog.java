@@ -65,6 +65,12 @@ public class CommentDialog extends DialogFragment {
                                 });
                             }else{
                                 dlg.dismiss();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(view.getContext(), R.string.comment_creation_success, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
 
                         }catch (Exception e){
