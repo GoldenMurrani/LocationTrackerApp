@@ -1,0 +1,56 @@
+
+Project 3 Submission
+
+Group Name:   Team 14
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+Project Name:  Project 3
+
+Project Description:  The user will open the app and be greeted with a login screen, or the option to
+                      create a new user account.
+
+                      Once the user logs in with a valid account, they'll be brought to the main activity
+                      showing a map. The map will display circles / bubbles representing points of interest.
+
+                      If the user travels to a point of interest and is within a certain distance to it a button
+                      will appear that will allow the user to say "I Was Here".
+
+                      Upon saying (pressing the button) "I Was Here" the user can then put in a short
+                      comment (or choose not to).
+
+                      After doing so the user can view the other users that have visited that place and their
+                      respective comments.
+
+Video Link:  (please enter)
+
+Member 1: Yousif Murrani
+
+Responsiblity: Show password functionality, Locations of interest appear on the live map as bubbles,
+               User can create a comment when pressing 'I am Here' button, adding new comment to the
+               cloud, live map initializing on users location
+
+
+
+Member 2: 
+
+Responsiblity:
+
+
+
+Member 3: 
+
+Responsiblity:
+
+
+
+Member 4: 
+
+Responsiblity:
+
+
+
+Member 5: 
+
+Responsiblity:
+
