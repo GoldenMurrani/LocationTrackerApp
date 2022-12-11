@@ -1,4 +1,3 @@
-
 Project 3 Submission
 
 Group Name:   Team 14
@@ -38,9 +37,9 @@ Responsiblity:
 
 
 
-Member 3: 
+Member 3: Nathaniel Ferry
 
-Responsiblity:
+Responsiblity: Created the activity_gps layout, set up the GPS / location functionality and Google Map functionality inside of GpsActivity, helped design the database table structures, coded PHP involved in returning comments for a specific location and PHP involved in checking if a user clicked I WAS HERE in a valid location, set up the comment list view inside of GpsActivity 
 
 
 
