@@ -148,6 +148,7 @@ public class GpsActivity extends AppCompatActivity implements OnMapReadyCallback
                                 commentDialog.setUserID(userID);
                                 commentDialog.show(getSupportFragmentManager(), "comment");
 
+                                grabComments(locInfo.getId());
                             }
                         });
                     }
