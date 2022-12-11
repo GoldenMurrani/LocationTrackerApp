@@ -41,6 +41,7 @@ public class CommentDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 // Cancel just closes the dialog box
+                ((GpsActivity)getActivity()).grabComments(locationID);
             }
         });
 
@@ -69,6 +70,8 @@ public class CommentDialog extends DialogFragment {
                                     @Override
                                     public void run() {
                                         Toast.makeText(view.getContext(), R.string.comment_creation_success, Toast.LENGTH_SHORT).show();
+
+                                        ((GpsActivity)getActivity()).grabComments(locationID);
                                     }
                                 });
                             }
