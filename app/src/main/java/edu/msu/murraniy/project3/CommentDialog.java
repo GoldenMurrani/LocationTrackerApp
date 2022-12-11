@@ -28,6 +28,8 @@ public class CommentDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        final GpsActivity activity = (GpsActivity) getActivity();
+
         builder.setTitle(R.string.comment_title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -41,7 +43,7 @@ public class CommentDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 // Cancel just closes the dialog box
-                ((GpsActivity)getActivity()).grabComments(locationID);
+                activity.grabComments(locationID);
             }
         });
 
@@ -66,12 +68,12 @@ public class CommentDialog extends DialogFragment {
                                 });
                             }else{
                                 dlg.dismiss();
-                                getActivity().runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(view.getContext(), R.string.comment_creation_success, Toast.LENGTH_SHORT).show();
 
-                                        ((GpsActivity)getActivity()).grabComments(locationID);
+                                        activity.grabComments(locationID);
                                     }
                                 });
                             }
