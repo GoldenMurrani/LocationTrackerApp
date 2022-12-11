@@ -21,7 +21,7 @@ Project Description:  The user will open the app and be greeted with a login scr
                       After doing so the user can view the other users that have visited that place and their
                       respective comments.
 
-Video Link:  (please enter)
+Video Link:  https://youtu.be/Cj42L8H_OQE
 
 Member 1: Yousif Murrani
 
@@ -45,9 +45,9 @@ a user clicked I WAS HERE in a valid location, set up the comment list view insi
 
 
 
-Member 4: 
+Member 4: Naveen Kumanan
 
-Responsiblity:
+Responsiblity: Got a screen recording of the app in use, uploaded it to youtube and submitted link.
 
 
 
