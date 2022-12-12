@@ -31,9 +31,9 @@ Responsiblity: Show password functionality, Locations of interest appear on the 
 
 
 
-Member 2: 
+Member 2: Marshall Kroske
 
-Responsiblity:
+Responsiblity: login page and account creation design/functionality, database/webpage setup/hosting, other minor fixes
 
 
 
